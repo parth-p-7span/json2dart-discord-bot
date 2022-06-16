@@ -1,0 +1,9 @@
+{
+  "class_name": "Employee",
+  "name": "parth",
+  "age": 21,
+  "skills": [
+    "python",
+    "flutter"
+  ]
+}
