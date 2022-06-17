@@ -1,27 +1,34 @@
-data = {
+from class_generator import Generator
+import json
+
+data = '''{
+    "class_name": "Person",
     "name": "parth",
     "age": 21,
-    "skills": [
-        "python",
-        ['fds', 'fasdfh'],
-        3,
-        {
-            "dad": "hrp",
-            "mom": "mhp"
-        }
+    "members": [
+        {"id": 1, "name": "a"},
+        {"id": 1, "name": "a"},
+        {"id": 1, "name": "a"}
     ]
-}
+}'''
 
-for key, value in data.items():
-    if type(value) == list:
-        datatype = type(value[0])
+j_data = json.loads(data)
+print(j_data)
 
-        for i in value:
-            if type(i) == str:
-                print("String")
-            elif type(i) == int:
-                print("int")
-            elif type(i) == list:
-                print("List")
-            else:
-                print(type(i))
+# final_string = ""
+#
+# generator = Generator("Person", data)
+#
+# final_string += generator.create_class() + "\n\n"
+#
+# for key, value in data.items():
+#     if type(value) == dict:
+#         temp_generator = Generator(key.capitalize(), value)
+#         final_string += temp_generator.create_class() + "\n\n"
+#     elif type(value) == list:
+#         dtype = type(value[0])
+#         if dtype == dict:
+#             temp_generator = Generator(key.capitalize(), value[0])
+#             final_string += temp_generator.create_class() + "\n\n"
+#
+# print(final_string)
