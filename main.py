@@ -57,4 +57,4 @@ async def on_message(message):
 
 
 if __name__ == "__main__":
-    client.run(constants.TOKEN)
+    client.run("OTg3MDAwNDk5NzU0NjUxNjU4.GMo8DZ.gQJVJLtdu3F9bL3e0N0AOVX8rHyOMPSafL95tU")
