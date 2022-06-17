@@ -10,6 +10,8 @@ class Generator:
                 string += "   String " + key + ";\n"
             elif type(value) == int:
                 string += "   int " + key + ";\n"
+            elif type(value) == float:
+                string += "   double " + key + ";\n"
             elif type(value) == list:
                 datatype = type(value[0])
                 if datatype == str:
