@@ -37,7 +37,7 @@ async def on_message(message):
         for key, value in data.items():
             if type(value) == dict:
                 temp_generator = Generator(key.capitalize(), value)
-                final_dart_code += temp_generator.create_class()
+                final_dart_code += temp_generator.create_class() + "\n\n"
             elif type(value) == list:
                 dtype = type(value[0])
                 if dtype == dict:
