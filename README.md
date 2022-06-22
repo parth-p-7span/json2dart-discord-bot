@@ -2,7 +2,7 @@ A discord bot to convert JSON data to Dart class.
 
 ## Usage
 
-invite bot using this link: [invitation link](http://example.com/issues/replaceme)
+invite bot using this link: [invitation link]([http://example.com/issues/replaceme](https://discord.com/api/oauth2/authorize?client_id=989037591980564480&permissions=68608&scope=bot%20applications.commands))
 
 ## Screen Shots
 
