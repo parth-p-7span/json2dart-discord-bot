@@ -1,34 +1,66 @@
 from class_generator import Generator
 import json
 
-data = '''{
-    "class_name": "Person",
-    "name": "parth",
-    "age": 21,
-    "members": [
-        {"id": 1, "name": "a"},
-        {"id": 1, "name": "a"},
-        {"id": 1, "name": "a"}
-    ]
-}'''
+data = '''
+{
+    "name":"parth",
+    "profile":{
+        "surname":"panchal",
+        "age":21,
+        "job":{
+            "title":"developer",
+            "company":{
+                "name":"7Span",
+                "area":{
+                    "name": "sola",
+                    "pin": 380060
+                },
+                "skills":[
+                    {"id":1, "name":"flutter"},
+                    {"id":2, "name":"python"}
+                ]
+            }
+        }
+    }
+}
+'''
 
-j_data = json.loads(data)
-print(j_data)
+data = json.loads(data)
 
-# final_string = ""
-#
-# generator = Generator("Person", data)
-#
-# final_string += generator.create_class() + "\n\n"
-#
-# for key, value in data.items():
-#     if type(value) == dict:
-#         temp_generator = Generator(key.capitalize(), value)
-#         final_string += temp_generator.create_class() + "\n\n"
-#     elif type(value) == list:
-#         dtype = type(value[0])
-#         if dtype == dict:
-#             temp_generator = Generator(key.capitalize(), value[0])
-#             final_string += temp_generator.create_class() + "\n\n"
-#
-# print(final_string)
+temp = []
+
+
+def checkData(d, parent):
+    temp = []
+    for k, v in d.items():
+        if isinstance(v, dict):
+            temp.append(parent)
+            checkData(v, parent + '-' + k)
+        elif isinstance(v, list):
+            if isinstance(v[0], dict):
+                temp.append(parent + '-' + k)
+
+
+checkData(data, '')
+
+file = open('temp.dart', mode='w')
+
+for i in temp:
+    loc = i.split('-')
+    loc.remove('')
+    print(loc)
+    temp_data = data
+    for k in loc:
+        temp_data = temp_data[k]
+    if not loc:
+        temp_generator = Generator("DartClass", temp_data)
+        file.write(temp_generator.create_class() + "\n\n")
+    else:
+        if isinstance(temp_data, list):
+            temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
+            file.write(temp_generator.create_class() + "\n\n")
+        else:
+            temp_generator = Generator(loc[-1].capitalize(), temp_data)
+            file.write(temp_generator.create_class() + "\n\n")
+
+file.close()
