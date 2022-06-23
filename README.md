@@ -1,10 +1,17 @@
-A discord bot to convert JSON data to Dart class.
+# json2dart
 
-## Usage
+## _Discord bot to convert JSON code into Dart Class_
 
-invite bot using this link: [invitation link](https://discord.com/api/oauth2/authorize?client_id=989037591980564480&permissions=68608&scope=bot%20applications.commands)
+[![first-timers-only](https://img.shields.io/badge/first--timers--only-friendly-tomato.svg?style=flat&logo=git)](https://github.com/parthp-7span/json2dart-discord-bot/issues) [![GitHub stars](https://img.shields.io/github/stars/parthp-7span/json2dart-discord-bot.svg?logo=github)](https://github.com/parthp-7span/json2dart-discord-bot/stargazers) [![GitHub forks](https://img.shields.io/github/forks/parthp-7span/json2dart-discord-bot.svg?logo=github&color=yellow)](https://github.com/parthp-7span/json2dart-discord-bot/network) [![GitHub top language](https://img.shields.io/github/languages/top/parthp-7span/json2dart-discord-bot?color=blue&logo=python)](https://github.com/parthp-7span/json2dart-discord-bot)
 
-## Screen Shots
+## How to use?
 
-![ss-1](./ss/1.png)
-![ss-2](./ss/2.png)
+Step 1: Invite bot to your discord server using below link.
+
+<p align="center">
+<a href="https://7span.com">
+<img src="./ss/invitebot.png" width="200"/>
+</a>
+</p>
+
+Step 2: DM your JSON code to `json2dart` bot.
