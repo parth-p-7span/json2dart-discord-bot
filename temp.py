@@ -1,24 +1,50 @@
 from class_generator import Generator
 import json
 
-data = '''
+# data = '''
+# {
+#     "name":"parth",
+#     "profile":{
+#         "surname":"panchal",
+#         "age":21,
+#         "job":{
+#             "title":"developer",
+#             "company":{
+#                 "name":"7Span",
+#                 "area":{
+#                     "name": "sola",
+#                     "pin": 380060
+#                 },
+#                 "skills":[
+#                     {"id":1, "name":"flutter"},
+#                     {"id":2, "name":"python"}
+#                 ]
+#             }
+#         }
+#     }
+# }
+# '''
+
+data = r'''
+
 {
-    "name":"parth",
-    "profile":{
-        "surname":"panchal",
-        "age":21,
-        "job":{
-            "title":"developer",
-            "company":{
-                "name":"7Span",
-                "area":{
-                    "name": "sola",
-                    "pin": 380060
-                },
-                "skills":[
-                    {"id":1, "name":"flutter"},
-                    {"id":2, "name":"python"}
-                ]
+    "glossary": {
+        "title": "example glossary",
+		"GlossDiv": {
+            "title": "S",
+			"GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+					"SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+					"GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+						"GlossSeeAlso": ["GML", "XML"]
+                    },
+					"GlossSee": "markup"
+                }
             }
         }
     }
@@ -31,10 +57,9 @@ temp = []
 
 
 def checkData(d, parent):
-    temp = []
     for k, v in d.items():
         if isinstance(v, dict):
-            temp.append(parent)
+            temp.append(parent + '-' + k)
             checkData(v, parent + '-' + k)
         elif isinstance(v, list):
             if isinstance(v[0], dict):
@@ -42,6 +67,8 @@ def checkData(d, parent):
 
 
 checkData(data, '')
+
+print(temp)
 
 file = open('temp.dart', mode='w')
 

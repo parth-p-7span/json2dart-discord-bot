@@ -67,7 +67,7 @@ async def on_message(message):
     def checkData(d, parent):
         for k, v in d.items():
             if isinstance(v, dict):
-                temp.append(parent)
+                temp.append(parent + '-' + k)
                 checkData(v, parent + '-' + k)
             elif isinstance(v, list):
                 if isinstance(v[0], dict):
