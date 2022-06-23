@@ -1,9 +1,11 @@
 import json
 import discord
 from discord.ext import commands
-import constants
 from class_generator import Generator
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 intents = discord.Intents.default()
 intents.members = True
@@ -97,6 +99,6 @@ async def on_message(message):
     await message.channel.send(file=discord.File(file_name))
     os.remove(file_name)
 
-    
+
 if __name__ == "__main__":
-    client.run(constants.TOKEN)
+    client.run(os.getenv('TOKEN'))
