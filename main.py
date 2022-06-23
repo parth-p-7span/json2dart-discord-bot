@@ -55,48 +55,47 @@ async def test(ctx):
 
 @client.event
 async def on_message(message):
+    if message.author == client.user:
+        return
     string = message.content
-    try:
-        data = json.loads(string)
-        class_name = "DataClass"
-        file_name = "temp.dart"
+    data = json.loads(string)
+    class_name = "DataClass"
+    file_name = "temp.dart"
 
-        temp = []
+    temp = []
 
-        def checkData(d, parent):
-            for k, v in d.items():
-                if isinstance(v, dict):
-                    temp.append(parent)
-                    checkData(v, parent + '-' + k)
-                elif isinstance(v, list):
-                    if isinstance(v[0], dict):
-                        temp.append(parent + '-' + k)
+    def checkData(d, parent):
+        for k, v in d.items():
+            if isinstance(v, dict):
+                temp.append(parent)
+                checkData(v, parent + '-' + k)
+            elif isinstance(v, list):
+                if isinstance(v[0], dict):
+                    temp.append(parent + '-' + k)
 
-        checkData(data, '')
+    checkData(data, '')
 
-        file = open(file_name, mode='w')
+    file = open(file_name, mode='w')
 
-        for i in temp:
-            loc = i.split('-')
-            loc.remove('')
-            temp_data = data
-            for k in loc:
-                temp_data = temp_data[k]
-            if not loc:
-                temp_generator = Generator(class_name, temp_data)
+    for i in temp:
+        loc = i.split('-')
+        loc.remove('')
+        temp_data = data
+        for k in loc:
+            temp_data = temp_data[k]
+        if not loc:
+            temp_generator = Generator(class_name, temp_data)
+            file.write(temp_generator.create_class() + "\n\n")
+        else:
+            if isinstance(temp_data, list):
+                temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
                 file.write(temp_generator.create_class() + "\n\n")
             else:
-                if isinstance(temp_data, list):
-                    temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
-                    file.write(temp_generator.create_class() + "\n\n")
-                else:
-                    temp_generator = Generator(loc[-1].capitalize(), temp_data)
-                    file.write(temp_generator.create_class() + "\n\n")
-        file.close()
-        await message.channel.send(file=discord.File(file_name))
-        os.remove(file_name)
-    except Exception as e:
-        print(e)
+                temp_generator = Generator(loc[-1].capitalize(), temp_data)
+                file.write(temp_generator.create_class() + "\n\n")
+    file.close()
+    await message.channel.send(file=discord.File(file_name))
+    os.remove(file_name)
 
 
 if __name__ == "__main__":
