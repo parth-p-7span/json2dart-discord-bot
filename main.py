@@ -61,7 +61,7 @@ async def on_message(message):
         return
     string = message.content
     data = json.loads(string)
-    class_name = "DataClass"
+    class_name = "DartClass"
     file_name = "temp.dart"
 
     temp = []
@@ -79,22 +79,20 @@ async def on_message(message):
 
     file = open(file_name, mode='w')
 
+    temp_generator = Generator(class_name, data)
+    file.write(temp_generator.create_class() + "\n\n")
     for i in temp:
         loc = i.split('-')
         loc.remove('')
         temp_data = data
         for k in loc:
             temp_data = temp_data[k]
-        if not loc:
-            temp_generator = Generator(class_name, temp_data)
+        if isinstance(temp_data, list):
+            temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
             file.write(temp_generator.create_class() + "\n\n")
         else:
-            if isinstance(temp_data, list):
-                temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
-                file.write(temp_generator.create_class() + "\n\n")
-            else:
-                temp_generator = Generator(loc[-1].capitalize(), temp_data)
-                file.write(temp_generator.create_class() + "\n\n")
+            temp_generator = Generator(loc[-1].capitalize(), temp_data)
+            file.write(temp_generator.create_class() + "\n\n")
     file.close()
     await message.channel.send(file=discord.File(file_name))
     os.remove(file_name)
