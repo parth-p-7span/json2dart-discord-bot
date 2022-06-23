@@ -9,7 +9,7 @@
 Step 1: Invite bot to your discord server using below link.
 
 <p align="center">
-<a href="https://7span.com">
+<a href="https://discord.com/api/oauth2/authorize?client_id=989037591980564480&permissions=2147519488&scope=bot%20applications.commands">
 <img src="./ss/invitebot.png" width="200"/>
 </a>
 </p>
