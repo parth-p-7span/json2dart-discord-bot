@@ -72,6 +72,9 @@ print(temp)
 
 file = open('temp.dart', mode='w')
 
+temp_generator = Generator("DartClass", data)
+file.write(temp_generator.create_class() + "\n\n")
+
 for i in temp:
     loc = i.split('-')
     loc.remove('')
@@ -79,15 +82,11 @@ for i in temp:
     temp_data = data
     for k in loc:
         temp_data = temp_data[k]
-    if not loc:
-        temp_generator = Generator("DartClass", temp_data)
+    if isinstance(temp_data, list):
+        temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
         file.write(temp_generator.create_class() + "\n\n")
     else:
-        if isinstance(temp_data, list):
-            temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
-            file.write(temp_generator.create_class() + "\n\n")
-        else:
-            temp_generator = Generator(loc[-1].capitalize(), temp_data)
-            file.write(temp_generator.create_class() + "\n\n")
+        temp_generator = Generator(loc[-1].capitalize(), temp_data)
+        file.write(temp_generator.create_class() + "\n\n")
 
 file.close()
