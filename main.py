@@ -74,6 +74,7 @@ async def on_message(message):
             elif isinstance(v, list):
                 if isinstance(v[0], dict):
                     temp.append(parent + '-' + k)
+                    checkData(v[0], parent + '-' + k)
 
     checkData(data, '')
 
@@ -86,7 +87,10 @@ async def on_message(message):
         loc.remove('')
         temp_data = data
         for k in loc:
-            temp_data = temp_data[k]
+            if isinstance(temp_data, list):
+                temp_data = temp_data[0][k]
+            else:
+                temp_data = temp_data[k]
         if isinstance(temp_data, list):
             temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
             file.write(temp_generator.create_class() + "\n\n")
