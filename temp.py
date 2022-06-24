@@ -64,46 +64,49 @@ data = r'''
 }
 '''
 
-data = json.loads(data)
+try:
+    data = json.loads(data)
 
-temp = []
+    temp = []
 
 
-def checkData(d, parent):
-    for k, v in d.items():
-        if isinstance(v, dict):
-            temp.append(parent + '-' + k)
-            checkData(v, parent + '-' + k)
-        elif isinstance(v, list):
-            if isinstance(v[0], dict):
+    def checkData(d, parent):
+        for k, v in d.items():
+            if isinstance(v, dict):
                 temp.append(parent + '-' + k)
-                checkData(v[0], parent + '-' + k)
+                checkData(v, parent + '-' + k)
+            elif isinstance(v, list):
+                if isinstance(v[0], dict):
+                    temp.append(parent + '-' + k)
+                    checkData(v[0], parent + '-' + k)
 
 
-checkData(data, '')
+    checkData(data, '')
 
-# print(temp)
+    # print(temp)
 
-file = open('temp.dart', mode='w')
+    file = open('temp.dart', mode='w')
 
-temp_generator = Generator("DartClass", data)
-file.write(temp_generator.create_class() + "\n\n")
+    temp_generator = Generator("DartClass", data)
+    file.write(temp_generator.create_class() + "\n\n")
 
-for i in temp:
-    loc = i.split('-')
-    loc.remove('')
-    print(loc)
-    temp_data = data
-    for k in loc:
+    for i in temp:
+        loc = i.split('-')
+        loc.remove('')
+        print(loc)
+        temp_data = data
+        for k in loc:
+            if isinstance(temp_data, list):
+                temp_data = temp_data[0][k]
+            else:
+                temp_data = temp_data[k]
         if isinstance(temp_data, list):
-            temp_data = temp_data[0][k]
+            temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
+            file.write(temp_generator.create_class() + "\n\n")
         else:
-            temp_data = temp_data[k]
-    if isinstance(temp_data, list):
-        temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
-        file.write(temp_generator.create_class() + "\n\n")
-    else:
-        temp_generator = Generator(loc[-1].capitalize(), temp_data)
-        file.write(temp_generator.create_class() + "\n\n")
+            temp_generator = Generator(loc[-1].capitalize(), temp_data)
+            file.write(temp_generator.create_class() + "\n\n")
 
-file.close()
+    file.close()
+except json.decoder.JSONDecodeError:
+    print("Invalid JSON")
