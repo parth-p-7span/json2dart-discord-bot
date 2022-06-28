@@ -25,10 +25,13 @@ async def test(ctx):
     await ctx.send(f'Tested!')
 
 
-@client.command()
-async def clear(ctx, limit=5):
+@client.command(name="purge")
+async def purge(ctx, limit=5):
     print('-------', ctx.channel)
-    await ctx.channel.purge(limit=limit)
+    try:
+        await ctx.channel.purge(limit=limit)
+    except Exception as e:
+        print(e)
 
 
 @client.event
