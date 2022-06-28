@@ -60,43 +60,53 @@ async def on_message(message):
     if message.author == client.user:
         return
     string = message.content
-    data = json.loads(string)
-    class_name = "DartClass"
-    file_name = "temp.dart"
+    print(string[0], string[-1])
+    if string[0] == "{" and string[-1] == "}":
+        try:
+            data = json.loads(string)
+            class_name = "DartClass"
+            file_name = "temp.dart"
 
-    temp = []
+            temp = []
 
-    def checkData(d, parent):
-        for k, v in d.items():
-            if isinstance(v, dict):
-                temp.append(parent + '-' + k)
-                checkData(v, parent + '-' + k)
-            elif isinstance(v, list):
-                if isinstance(v[0], dict):
-                    temp.append(parent + '-' + k)
+            def checkData(d, parent):
+                for k, v in d.items():
+                    if isinstance(v, dict):
+                        temp.append(parent + '-' + k)
+                        checkData(v, parent + '-' + k)
+                    elif isinstance(v, list):
+                        if isinstance(v[0], dict):
+                            temp.append(parent + '-' + k)
+                            checkData(v[0], parent + '-' + k)
 
-    checkData(data, '')
+            checkData(data, '')
 
-    file = open(file_name, mode='w')
+            file = open(file_name, mode='w')
 
-    temp_generator = Generator(class_name, data)
-    file.write(temp_generator.create_class() + "\n\n")
-    for i in temp:
-        loc = i.split('-')
-        loc.remove('')
-        temp_data = data
-        for k in loc:
-            temp_data = temp_data[k]
-        if isinstance(temp_data, list):
-            temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
+            temp_generator = Generator(class_name, data)
             file.write(temp_generator.create_class() + "\n\n")
-        else:
-            temp_generator = Generator(loc[-1].capitalize(), temp_data)
-            file.write(temp_generator.create_class() + "\n\n")
-    file.close()
-    await message.channel.send(file=discord.File(file_name))
-    os.remove(file_name)
+            for i in temp:
+                loc = i.split('-')
+                loc.remove('')
+                temp_data = data
+                for k in loc:
+                    if isinstance(temp_data, list):
+                        temp_data = temp_data[0][k]
+                    else:
+                        temp_data = temp_data[k]
+                if isinstance(temp_data, list):
+                    temp_generator = Generator(loc[-1].capitalize(), temp_data[0])
+                    file.write(temp_generator.create_class() + "\n\n")
+                else:
+                    temp_generator = Generator(loc[-1].capitalize(), temp_data)
+                    file.write(temp_generator.create_class() + "\n\n")
+            file.close()
+            await message.channel.send(file=discord.File(file_name))
+            os.remove(file_name)
+        except json.decoder.JSONDecodeError:
+            await message.channel.send("Invalid JSON found 🙁")
 
 
 if __name__ == "__main__":
-    client.run(os.getenv('TOKEN'))
+    # client.run(os.getenv('TOKEN'))
+    client.run('OTg5MDM3NTkxOTgwNTY0NDgw.Gx6Kk4.lUbI4f5FIoErXIQ7C5gVCIfxTl2ad28THWsW5o')
