@@ -108,5 +108,4 @@ async def on_message(message):
 
 
 if __name__ == "__main__":
-    # client.run(os.getenv('TOKEN'))
-    client.run('OTg5MDM3NTkxOTgwNTY0NDgw.Gx6Kk4.lUbI4f5FIoErXIQ7C5gVCIfxTl2ad28THWsW5o')
+    client.run(os.getenv('TOKEN'))
