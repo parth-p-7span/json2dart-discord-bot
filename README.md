@@ -18,7 +18,7 @@ link.</a>
 
 Step 2: DM your JSON code to `json2dart` bot `or` paste your JSON code to any text channel of your server.
 
-## USAGE
+## Use
 
 <img src="./ss/ss1.gif"/>
 
