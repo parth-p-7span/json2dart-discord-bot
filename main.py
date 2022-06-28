@@ -39,7 +39,6 @@ async def on_message(message):
     if message.author == client.user:
         return
     string = message.content
-    print(string[0], string[-1])
     if string[0] == "{" and string[-1] == "}":
         try:
             data = json.loads(string)
