@@ -6,7 +6,9 @@
 
 ## How to use?
 
-Step 1: Invite bot to your discord server using below link.
+Step 1: Invite bot to your discord server using
+below <a href="https://discord.com/api/oauth2/authorize?client_id=989037591980564480&permissions=2147519488&scope=bot%20applications.commands">
+link.</a>
 
 <p align="center">
 <a href="https://discord.com/api/oauth2/authorize?client_id=989037591980564480&permissions=2147519488&scope=bot%20applications.commands">
@@ -14,4 +16,12 @@ Step 1: Invite bot to your discord server using below link.
 </a>
 </p>
 
-Step 2: DM your JSON code to `json2dart` bot.
+Step 2: DM your JSON code to `json2dart` bot `or` paste your JSON code to any text channel of your server.
+
+## Example
+
+<img src="./ss/ss1.gif"/>
+
+##  
+
+<img src="./ss/ss2.gif"/>

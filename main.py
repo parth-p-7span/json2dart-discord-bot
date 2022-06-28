@@ -25,34 +25,13 @@ async def test(ctx):
     await ctx.send(f'Tested!')
 
 
-# @client.event
-# async def on_message(message):
-#     string = message.content
-#     try:
-#         data = json.loads(string)
-#         final_dart_code = ""
-#         class_name = "DataClass"
-#
-#         generator = Generator(class_name, data)
-#         final_dart_code += generator.create_class() + "\n\n"
-#
-#         for key, value in data.items():
-#             if type(value) == dict:
-#                 temp_generator = Generator(key.capitalize(), value)
-#                 final_dart_code += temp_generator.create_class() + "\n\n"
-#             elif type(value) == list:
-#                 dtype = type(value[0])
-#                 if dtype == dict:
-#                     temp_generator = Generator(key.capitalize(), value[0])
-#                     final_dart_code += temp_generator.create_class() + "\n\n"
-#
-#         file_name = class_name.lower() + ".dart"
-#         with open(file_name, "w") as f:
-#             f.write(final_dart_code)
-#         await message.channel.send(file=discord.File(file_name))
-#         os.remove(file_name)
-#     except Exception as e:
-#         print(e)
+@client.command(name="purge")
+async def purge(ctx, limit=5):
+    print('-------', ctx.channel)
+    try:
+        await ctx.channel.purge(limit=limit)
+    except Exception as e:
+        print(e)
 
 
 @client.event
