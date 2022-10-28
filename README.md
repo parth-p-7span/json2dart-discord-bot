@@ -25,3 +25,23 @@ Step 2: DM your JSON code to `json2dart` bot `or` paste your JSON code to any te
 ##  
 
 <img src="./ss/ss2.gif"/>
+
+## Project Setup
+1. Clone this repository to your workspace
+```shell
+git clone https://github.com/parth-p-7span/json2dart-discord-bot.git
+```
+2. Navigate to json2dart-discord-bot directory in your terminal
+```shell
+cd json2dart-discord-bot
+```
+3. Install required packages using below command
+```shell
+pip install -r requirements.txt
+```
+4. Create a file called `.env` in the project's root directory, then add your Discord bot token inside with the key `TOKEN`
+5. Now run `main.py` file to wake up the bot
+
+## Files Structure
+- `class_generator.py` : The primary logic for converting a json object to a Dart class is included in this Python script.
+- `main.py` : The code for running the Discord bot and interacting with users is included in this Python script.
