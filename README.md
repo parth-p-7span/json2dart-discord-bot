@@ -26,6 +26,11 @@ Step 2: DM your JSON code to `json2dart` bot `or` paste your JSON code to any te
 
 <img src="./ss/ss2.gif"/>
 
+## Prerequisite
+- Python3
+- Dart
+- [Discord.py](https://discordpy.readthedocs.io/en/stable/)
+
 ## Project Setup
 1. Clone this repository to your workspace
 ```shell
